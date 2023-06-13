@@ -8,7 +8,7 @@ pipeline {
       }
     }
     
-     stage('Show branch name') {
+    stage('Show branch name') {
       steps {
         script {
           def branchName = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
