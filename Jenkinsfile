@@ -28,7 +28,7 @@ pipeline {
         sh "pwd"
         dir('Node-app') {
           sh "pwd"
-          sh "docker build -t tester:latest -f Node-App/Dockerfile"
+          sh "docker build -t tester:latest ."
           sh 'sudo docker build -t node-app:latest .'
         }
       }
