@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Clone repository') {
       steps {
-        git branch: 'dev', url: 'https://github.com/yashwanthhvx/Node_App.git'
+        git branch: 'main', url: 'https://github.com/yashwanthhvx/Node_App.git'
       }
     }
     
