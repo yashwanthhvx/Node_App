@@ -33,7 +33,7 @@ pipeline {
 
     stage('Run Docker container') {
       steps {
-        dir('node-app') {
+        dir('Node-app') {
           sh 'sudo docker run -p 80:3000 -d node-app:latest'
         }
       }
@@ -41,7 +41,7 @@ pipeline {
 
     stage('Execute the Bash Script to docker login and save image') {
       steps {
-        dir('node-app') {
+        dir('Node-app') {
           sh 'sudo bash docker-credentials.sh'
           sh 'sudo docker tag node-app:latest hvxuser/jenkins'
           sh 'sudo docker push hvxuser/jenkins'
@@ -51,7 +51,7 @@ pipeline {
 
     stage('Create Kubernetes Deployment') {
       steps {
-        dir('node-app') {
+        dir('Node-app') {
           script {
             def deployCmd = "sudo kubectl apply -f k8-deployment.yml"
             def deployStatus = sh(script: deployCmd, returnStatus: true)
@@ -70,7 +70,7 @@ pipeline {
 
     stage('Create Kubernetes Service') {
       steps {
-        dir('node-app') {
+        dir('Node-app') {
           script {
             def serviceCmd = "sudo kubectl apply -f k8-service.yml"
             def serviceStatus = sh(script: serviceCmd, returnStatus: true)
