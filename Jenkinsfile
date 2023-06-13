@@ -25,7 +25,7 @@ pipeline {
       
     stage('Build Docker image') {
       steps {
-        dir('node-app') {
+        dir('Node-app') {
           sh 'sudo docker build -t node-app:latest .'
         }
       }
