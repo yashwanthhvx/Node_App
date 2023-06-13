@@ -28,6 +28,8 @@ pipeline {
         sh "pwd"
         dir('Node-app') {
           sh "pwd"
+          sh "cd Node-App"
+          sh "pwd"
           sh "docker build -t tester:latest ."
           sh 'sudo docker build -t node-app:latest .'
         }
