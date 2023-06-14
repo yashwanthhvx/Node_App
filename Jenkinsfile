@@ -20,6 +20,12 @@ pipeline {
         }
       }
     }
+    
+    stage('Copy the code packages to destination path') {
+      steps {
+        sh 'sudo cp -R /var/lib/jenkins/workspace/Jenkins_App_main/node-app/* /var/lib/jenkins/workspace/Node_App_main/Node-App/.'
+      }
+    }
 
     stage('Build Docker image') {
       steps {
