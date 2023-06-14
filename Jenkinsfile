@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Clone repository') {
       steps {
-        git branch: 'dev', url: 'https://github.com/yashwanthhvx/Node_App.git'
+        git branch: 'main', url: 'https://github.com/yashwanthhvx/Node_App.git'
       }
     }
     
@@ -19,16 +19,14 @@ pipeline {
     
     stage('Copy the code packages to destination path') {
       steps {
-        sh 'sudo cp -R /var/lib/jenkins/workspace/Jenkins_App_main/node-app/* /var/lib/jenkins/workspace/Node_App_dev/Node-App/.'
+        sh 'sudo cp -R /var/lib/jenkins/workspace/Jenkins_App_main/node-app/* /var/lib/jenkins/workspace/Node_App_main/Node-App/.'
       }
     }
       
     stage('Build Docker image') {
       steps {
         sh "pwd"
-        dir('Node-app') {
-          sh "pwd"
-          sh "docker build -t tester:latest ."
+        dir('Node-App') {
           sh 'sudo docker build -t node-app:latest .'
         }
       }
@@ -36,7 +34,7 @@ pipeline {
 
     stage('Run Docker container') {
       steps {
-        dir('Node-app') {
+        dir('Node-App') {
           sh 'sudo docker run -p 80:3000 -d node-app:latest'
         }
       }
@@ -44,7 +42,7 @@ pipeline {
 
     stage('Execute the Bash Script to docker login and save image') {
       steps {
-        dir('Node-app') {
+        dir('Node-App') {
           sh 'sudo bash docker-credentials.sh'
           sh 'sudo docker tag node-app:latest hvxuser/jenkins'
           sh 'sudo docker push hvxuser/jenkins'
@@ -54,7 +52,7 @@ pipeline {
 
     stage('Create Kubernetes Deployment') {
       steps {
-        dir('Node-app') {
+        dir('Node-App') {
           script {
             def deployCmd = "sudo kubectl apply -f k8-deployment.yml"
             def deployStatus = sh(script: deployCmd, returnStatus: true)
@@ -73,7 +71,7 @@ pipeline {
 
     stage('Create Kubernetes Service') {
       steps {
-        dir('Node-app') {
+        dir('Node-App') {
           script {
             def serviceCmd = "sudo kubectl apply -f k8-service.yml"
             def serviceStatus = sh(script: serviceCmd, returnStatus: true)
