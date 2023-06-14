@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Clone repository') {
       steps {
-        git branch: 'main', url: 'https://github.com/yashwanthhvx/Node_App.git'
+        git branch: 'prod', url: 'https://github.com/yashwanthhvx/Node_App.git'
       }
     }
     
@@ -19,7 +19,7 @@ pipeline {
     
     stage('Copy the code packages to destination path') {
       steps {
-        sh 'sudo cp -R /var/lib/jenkins/workspace/Jenkins_App_main/node-app/* /var/lib/jenkins/workspace/Node_App_main/Node-App/.'
+        sh 'sudo cp -R /var/lib/jenkins/workspace/Jenkins_App_prod/node-app/* /var/lib/jenkins/workspace/Node_App_prod/Node-App/.'
       }
     }
       
